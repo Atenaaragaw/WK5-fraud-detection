@@ -1,0 +1,14 @@
+# Ignore data and models
+data/
+models/
+*.csv
+
+# Ignore Python cache and environments
+__pycache__/
+.venv/
+env/
+.env
+
+# Ignore system files
+.DS_Store
+Thumbs.db
