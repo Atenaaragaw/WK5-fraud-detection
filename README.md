@@ -15,7 +15,7 @@ This project aims to improve fraud detection for **Adey Innovations Inc.** by bu
 ## 🛠️ Installation & Setup
 1. **Clone the repository:**
    ```powershell
-   git clone [https://github.com/YOUR_USERNAME/WK5-fraud-detection.git](https://github.com/YOUR_USERNAME/WK5-fraud-detection.git)
+   git clone [https://github.com/Atenaaragaw/WK5-fraud-detection.git](https://github.com/YOUR_USERNAME/WK5-fraud-detection.git)
    cd WK5-fraud-detection
 2. **Create and Activate Virtual Environment:**
 python -m venv venv
