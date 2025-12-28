@@ -1,59 +1,64 @@
-# WK5-Fraud-Detection: E-commerce & Banking
+# WK5-Fraud-Detection: E-Commerce & Banking Risk Analysis
 
-## 📌 Project Overview
-This project aims to improve fraud detection for **Adey Innovations Inc.** by building robust machine learning models that identify fraudulent transactions in e-commerce and credit card data. The project involves geolocation integration, behavioral feature engineering, and handling extreme class imbalance.
+## 📌 1. Project Overview & Business Objective
+For **Adey Innovations Inc.**, fraud detection is a critical pillar of financial stability and customer trust. The objective of this project is to build an automated machine learning system that:
+* **Maximizes Revenue Protection:** Identifying fraudulent transactions before they lead to chargebacks.
+* **Optimizes Customer Experience:** Ensuring high precision to avoid "False Positives" that block legitimate users.
+* **Botnet Detection:** Utilizing behavioral velocity features to identify automated attacks.
 
-## I. Business Objective (The "Why")
-For Adey Innovations Inc., fraud is not just a technical error; it is a direct drain on the bottom line.Financial Protection: Every missed fraud case (False Negative) results in direct revenue loss and chargeback fees.Customer Trust: Every blocked legitimate customer (False Positive) causes friction, potentially leading to churn.Objective: Build a precision-targeted system that maximizes fraud detection (Recall) while minimizing customer annoyance (Precision).
-## II. Roadmap for Tasks 2 & 3
-TaskObjectiveModels/MetricsChallengesTask 2: ModelingIdentify best-performing algorithm.Random Forest, XGBoost. Metrics: AUC-PR, F1-Score.Overfitting: Synthetic SMOTE data can bias the model. Mitigation: Stratified Cross-Validation.Task 3: ExplainabilityTranslate "Black Box" into "Human Logic."SHAP, LIME values.Complexity: Non-linear models are hard to explain. Mitigation: Use SHAP summary plots.
+---
+
+## 📂 2. Repository Structure
+* `.github/workflows/`: CI/CD pipelines for automated unit testing.
+- `data/`: Contains `raw/` datasets and `processed/` files ready for modeling.
+- `models/`: Saved `.pkl` files of the best-performing models.
+- `notebooks/`: Exploratory Data Analysis (EDA) and Model Training experiments.
+- `src/`: Production-ready Python scripts for preprocessing.
+- `tests/`: Unit tests to ensure data integrity.
+
+---
+
+## 🛠️ 3. Task 1: Data Engineering (Corrected)
+* **Geolocation Mapping:** Implemented a robust `merge_asof` lookup to map IP addresses to countries accurately.
+* **Feature Engineering:** Developed "Velocity Features" including `time_since_signup`, `user_freq`, and `device_freq` to capture behavioral patterns.
+* **Handling Imbalance:** Applied **SMOTE** (Synthetic Minority Over-sampling Technique) strictly to the training set to prevent data leakage while providing the model enough fraud samples to learn from.
 
 
 
-## 📂 Repository Structure
-- `.github/workflows/`: CI/CD pipelines (GitHub Actions).
-- `data/`: Raw and processed datasets (Note: Raw data is gitignored).
-- `notebooks/`: Jupyter notebooks for EDA and Model training.
-- `src/`: Production-ready Python scripts for preprocessing and modeling.
-- `tests/`: Unit tests for the data pipeline.
+---
 
-## 🛠️ Installation & Setup
-1. **Clone the repository:**
-   ```powershell
-   git clone [https://github.com/Atenaaragaw/WK5-fraud-detection.git](https://github.com/YOUR_USERNAME/WK5-fraud-detection.git)
-   cd WK5-fraud-detection
-2. **Create and Activate Virtual Environment:**
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-3. **Install Dependencies:**
-pip install -r requirements.txt
-**🚀 Completed Tasks**
-Task 1: Data Analysis and Preprocessing
-Geolocation Integration: Mapped IP addresses to countries using range-based lookups.
+## 🤖 4. Task 2: Model Building & Evaluation
+We compared two ensemble architectures to determine the best fit for the business objective.
 
-Feature Engineering: Developed velocity features like time_since_signup and device_freq.
+### Performance Comparison:
+| Metric | Random Forest (Winner) | XGBoost |
+| :--- | :--- | :--- |
+| **AUC-PR Score** | **0.6983** | 0.6899 |
+| **Recall (Fraud)** | **0.62** | 0.58 |
+| **Precision (Fraud)** | 0.64 | **0.78** |
+| **F1-Score** | 0.63 | 0.66 |
 
-EDA: Conducted univariate and bivariate analysis to identify fraud patterns by geography and behavior.
+### Business Decision:
+The **Random Forest** model was selected for the final pipeline. While XGBoost has higher precision, the Random Forest’s superior **Recall (0.62)** ensures we catch 4% more fraudulent transactions, which is prioritized for initial risk mitigation.
 
-Class Imbalance: Applied SMOTE to balance the training set, moving from a 9% minority class to a 50/50 balanced distribution.
 
-**📊 Key Insights from EDA**
-Velocity Matters: Users who purchase immediately after signing up have a significantly higher probability of being flagged as fraud.
 
-Geographic Hotspots: Certain countries exhibit higher fraud rates, which are now captured in our categorical features.
+---
 
-Class Imbalance: The dataset was highly imbalanced, requiring synthetic oversampling (SMOTE) for the models to learn effectively.
+## 🚀 5. Roadmap & Future Tasks
 
-**🧪 Testing**
-Automated tests are handled via GitHub Actions. To run tests locally:
-python -m unittest discover tests
-🛠️ Technologies Used
-Python 3.13
+### Task 3: Model Explainability (In Progress)
+* **Objective:** Use **SHAP** (SHapley Additive exPlanations) to explain individual predictions.
+* **Technique:** TreeExplainer for Random Forest.
+* **Goal:** Provide "Reason Codes" for the fraud team (e.g., "Flagged due to high device frequency and low time-to-purchase").
 
-Pandas & NumPy: Data manipulation.
+### Task 4: Monitoring & Deployment
+* **Challenge:** Fraudster behavior shifts over time (Model Drift).
+* **Mitigation:** Establishing a monitoring loop to track performance degradation and trigger automated retraining.
 
-Scikit-Learn: Preprocessing and Scaling.
+---
 
-Imbalanced-Learn: SMOTE implementation.
-
-Matplotlib & Seaborn: Visualization.
+## 🧪 6. How to Run
+1. **Activate Environment:** `.\venv\Scripts\Activate.ps1`
+2. **Install Dependencies:** `pip install -r requirements.txt`
+3. **Run Pipeline:** Execute the `notebooks/modeling.ipynb` or `src/preprocessing.py`.
