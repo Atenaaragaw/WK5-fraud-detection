@@ -3,6 +3,11 @@
 ## 📌 Project Overview
 This project aims to improve fraud detection for **Adey Innovations Inc.** by building robust machine learning models that identify fraudulent transactions in e-commerce and credit card data. The project involves geolocation integration, behavioral feature engineering, and handling extreme class imbalance.
 
+## I. Business Objective (The "Why")
+For Adey Innovations Inc., fraud is not just a technical error; it is a direct drain on the bottom line.Financial Protection: Every missed fraud case (False Negative) results in direct revenue loss and chargeback fees.Customer Trust: Every blocked legitimate customer (False Positive) causes friction, potentially leading to churn.Objective: Build a precision-targeted system that maximizes fraud detection (Recall) while minimizing customer annoyance (Precision).
+## II. Roadmap for Tasks 2 & 3
+TaskObjectiveModels/MetricsChallengesTask 2: ModelingIdentify best-performing algorithm.Random Forest, XGBoost. Metrics: AUC-PR, F1-Score.Overfitting: Synthetic SMOTE data can bias the model. Mitigation: Stratified Cross-Validation.Task 3: ExplainabilityTranslate "Black Box" into "Human Logic."SHAP, LIME values.Complexity: Non-linear models are hard to explain. Mitigation: Use SHAP summary plots.
+
 
 
 ## 📂 Repository Structure
