@@ -44,15 +44,10 @@ To ensure rigorous results, we compared our advanced models against a statistica
 
 ---
 
-## 🚀 5. Roadmap: Task 3 & 4
+## 🚀 5. Roadmap: Task 3 
 ### Task 3: Model Explainability (In Progress)
 * **Objective:** Use **SHAP** (SHapley Additive exPlanations) to provide "Reason Codes" for flagged transactions.
 * **Current Status:** Generating summary plots to identify the top behavioral triggers for fraud.
-
-
-
-### Task 4: Deployment & Monitoring
-* **Strategy:** Implementing a Flask API for real-time inference and monitoring for **Model Drift** over time.
 
 ---
 
@@ -60,3 +55,36 @@ To ensure rigorous results, we compared our advanced models against a statistica
 1. **Activate Environment:** `.\venv\Scripts\Activate.ps1`
 2. **Install Dependencies:** `pip install -r requirements.txt`
 3. **Run Pipeline:** Execute the `notebooks/modeling.ipynb` for the full training suite.
+
+## 🏛️ Executive Summary: Fraud Detection System
+Objective: To develop a high-precision machine learning pipeline that identifies fraudulent e-commerce transactions while minimizing friction for legitimate customers.
+
+## 1. The Challenge
+The initial data revealed a massive class imbalance (approx. 90% legitimate vs. 10% fraud). Standard statistical models (Logistic Regression) failed completely, yielding 0% recall on fraud. This necessitated a sophisticated, non-linear approach to protect revenue.
+
+## 2. The Solution: "Advanced Ensemble Intelligence"
+We implemented a Random Forest Classifier optimized through GridSearchCV and Stratified Cross-Validation.
+
+Precision: 0.74 — When the system flags fraud, it is correct 74% of the time.
+
+AUC-PR: 0.6870 — A massive improvement over the 0.091 baseline, showing superior ability to distinguish risk in imbalanced environments.
+
+Robustness: Integrated SMOTE to balance training data and comprehensive Try-Except blocks for data ingestion reliability.
+
+## 3. Key Behavioral Drivers (The "Why")
+Using SHAP Explainability, we identified the specific behaviors that trigger fraud alerts:
+
+Device Velocity (device_freq): The single strongest predictor. Fraud is highly correlated with "device-sharing," where one device is used to access multiple accounts in a short window.
+
+Signup Maturity (time_since_signup): High-risk transactions occur almost immediately after account creation.
+
+Channel Risk (source): Specific marketing channels show a significantly higher density of fraudulent activity.
+
+## 4. Strategic Recommendations
+To immediately reduce fraud losses at Adey Innovations, we recommend:
+
+Velocity Throttling: Implement a hard block or 24-hour hold on any device associated with more than two unique User IDs.
+
+Friction-Based Authentication: Trigger mandatory Multi-Factor Authentication (MFA) for users with less than 30 minutes of "account age" if their purchase value exceeds a specific threshold.
+
+Source-Based Auditing: Re-evaluate marketing spend on the "sources" identified by SHAP as high-risk to eliminate bot-driven referral traffic.
